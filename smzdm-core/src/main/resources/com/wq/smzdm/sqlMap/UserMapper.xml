@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wq.smzdm.sqlMap.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.wq.smzdm.model.User" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PASS" property="userPass" jdbcType="VARCHAR" />
+    <result column="USER_NICENAME" property="userNicename" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="USER_URL" property="userUrl" jdbcType="VARCHAR" />
+    <result column="USER_STATUS" property="userStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, USER_PASS, USER_NICENAME, USER_EMAIL, USER_URL, USER_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from USER
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wq.smzdm.model.User" >
+  <selectKey keyProperty="id" order="AFTER" resultType="INTEGER">
+  SELECT ID FROM USER
+  </selectKey>
+    insert into USER (ID, USER_NAME, USER_PASS, 
+      USER_NICENAME, USER_EMAIL, USER_URL, 
+      USER_STATUS)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPass,jdbcType=VARCHAR}, 
+      #{userNicename,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userUrl,jdbcType=VARCHAR}, 
+      #{userStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wq.smzdm.model.User" >
+    insert into USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userPass != null" >
+        USER_PASS,
+      </if>
+      <if test="userNicename != null" >
+        USER_NICENAME,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="userUrl != null" >
+        USER_URL,
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPass != null" >
+        #{userPass,jdbcType=VARCHAR},
+      </if>
+      <if test="userNicename != null" >
+        #{userNicename,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userUrl != null" >
+        #{userUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wq.smzdm.model.User" >
+    update USER
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPass != null" >
+        USER_PASS = #{userPass,jdbcType=VARCHAR},
+      </if>
+      <if test="userNicename != null" >
+        USER_NICENAME = #{userNicename,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userUrl != null" >
+        USER_URL = #{userUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS = #{userStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wq.smzdm.model.User" >
+    update USER
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_PASS = #{userPass,jdbcType=VARCHAR},
+      USER_NICENAME = #{userNicename,jdbcType=VARCHAR},
+      USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      USER_URL = #{userUrl,jdbcType=VARCHAR},
+      USER_STATUS = #{userStatus,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
